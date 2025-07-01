@@ -27,3 +27,11 @@ class test_review(test_basemodel):
         """ """
         new = self.value()
         self.assertEqual(type(new.text), str)
+
+    def test_kwargs_one(self):
+        """Test kwargs constructor for Review"""
+        obj = Review(**{"text": "Nice place"})
+        self.assertEqual(obj.text, "Nice place")
+        self.assertTrue(hasattr(obj, "id"))
+        self.assertTrue(hasattr(obj, "created_at"))
+        self.assertTrue(hasattr(obj, "updated_at"))

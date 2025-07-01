@@ -67,3 +67,21 @@ class test_Place(test_basemodel):
         """ """
         new = self.value()
         self.assertEqual(type(new.amenity_ids), list)
+
+    def test_kwargs_one(self):
+        """Test kwargs constructor for Place"""
+        obj = Place(**{
+            "name": "Penthouse",
+            "city_id": "C123",
+            "user_id": "U456",
+            "number_rooms": 3,
+            "latitude": 6.5244
+        })
+        self.assertEqual(obj.name, "Penthouse")
+        self.assertEqual(obj.city_id, "C123")
+        self.assertEqual(obj.user_id, "U456")
+        self.assertEqual(obj.number_rooms, 3)
+        self.assertEqual(obj.latitude, 6.5244)
+        self.assertTrue(hasattr(obj, "id"))
+        self.assertTrue(hasattr(obj, "created_at"))
+        self.assertTrue(hasattr(obj, "updated_at"))

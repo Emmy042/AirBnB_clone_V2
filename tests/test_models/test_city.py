@@ -22,3 +22,12 @@ class test_City(test_basemodel):
         """ """
         new = self.value()
         self.assertEqual(type(new.name), str)
+
+    def test_kwargs_one(self):
+        """Test kwargs constructor for City"""
+        obj = City(**{"name": "Lagos", "state_id": "123"})
+        self.assertEqual(obj.name, "Lagos")
+        self.assertEqual(obj.state_id, "123")
+        self.assertTrue(hasattr(obj, "id"))
+        self.assertTrue(hasattr(obj, "created_at"))
+        self.assertTrue(hasattr(obj, "updated_at"))

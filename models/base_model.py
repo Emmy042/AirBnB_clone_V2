@@ -7,7 +7,8 @@ from datetime import datetime
 class BaseModel:
     """A base class for all hbnb models"""
     def __init__(self, *args, **kwargs):
-        """Instatntiates a new model"""
+        
+        """Instantiates a new model"""
         if not kwargs:
             from models import storage
             self.id = str(uuid.uuid4())
@@ -15,12 +16,24 @@ class BaseModel:
             self.updated_at = datetime.now()
             storage.new(self)
         else:
-            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
+            if 'updated_at' in kwargs:
+                kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
+            if 'created_at' in kwargs:
+                kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
-            del kwargs['__class__']
+            if '__class__' in kwargs:
+                del kwargs['__class__']
             self.__dict__.update(kwargs)
+            if 'id' not in self.__dict__:
+                self.id = str(uuid.uuid4())
+            if 'created_at' not in self.__dict__:
+                self.created_at = datetime.now()
+            if 'updated_at' not in self.__dict__:
+                self.updated_at = datetime.now()
+
+            
+
 
     def __str__(self):
         """Returns a string representation of the instance"""

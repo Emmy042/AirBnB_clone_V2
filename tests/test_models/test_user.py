@@ -32,3 +32,11 @@ class test_User(test_basemodel):
         """ """
         new = self.value()
         self.assertEqual(type(new.password), str)
+        
+    def test_kwargs_one(self):
+        obj = User(**{"first_name": "Ada"})
+        self.assertEqual(obj.first_name, "Ada")
+        self.assertTrue(hasattr(obj, "id"))
+        self.assertTrue(hasattr(obj, "created_at"))
+        self.assertTrue(hasattr(obj, "updated_at"))
+

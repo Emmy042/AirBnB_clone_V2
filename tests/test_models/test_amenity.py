@@ -17,3 +17,11 @@ class test_Amenity(test_basemodel):
         """ """
         new = self.value()
         self.assertEqual(type(new.name), str)
+
+    def test_kwargs_one(self):
+        """Test kwargs constructor for Amenity"""
+        obj = Amenity(**{"name": "WiFi"})
+        self.assertEqual(obj.name, "WiFi")
+        self.assertTrue(hasattr(obj, "id"))
+        self.assertTrue(hasattr(obj, "created_at"))
+        self.assertTrue(hasattr(obj, "updated_at"))

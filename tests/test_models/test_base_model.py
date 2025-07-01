@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """ """
+from datetime import datetime
 from models.base_model import BaseModel
 import unittest
-import datetime
 from uuid import UUID
 import json
 import os
@@ -75,10 +75,14 @@ class test_basemodel(unittest.TestCase):
             new = self.value(**n)
 
     def test_kwargs_one(self):
-        """ """
-        n = {'Name': 'test'}
-        with self.assertRaises(KeyError):
-            new = self.value(**n)
+        obj = BaseModel(**{"name": "MyModel"})
+        self.assertEqual(obj.name, "MyModel")
+        self.assertTrue(hasattr(obj, "id"))
+        self.assertTrue(hasattr(obj, "created_at"))
+        self.assertTrue(hasattr(obj, "updated_at"))
+        self.assertIsInstance(obj.created_at, datetime)
+        self.assertIsInstance(obj.updated_at, datetime)
+
 
     def test_id(self):
         """ """
@@ -88,12 +92,12 @@ class test_basemodel(unittest.TestCase):
     def test_created_at(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.created_at), datetime.datetime)
+        self.assertEqual(type(new.created_at), datetime)
 
     def test_updated_at(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.updated_at), datetime.datetime)
+        self.assertEqual(type(new.updated_at), datetime)
         n = new.to_dict()
         new = BaseModel(**n)
         self.assertFalse(new.created_at == new.updated_at)
