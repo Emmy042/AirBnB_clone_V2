@@ -1,0 +1,1 @@
+this folder contains all the tasks i did on python, web framework (flask)
